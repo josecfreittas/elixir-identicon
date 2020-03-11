@@ -1,0 +1,4 @@
+%{
+  "egd": {:git, "https://github.com/erlang/egd.git", "1cea959544de7dd40a3284ba571a58939de57616", []},
+  "slugger": {:hex, :slugger, "0.3.0", "efc667ab99eee19a48913ccf3d038b1fb9f165fa4fbf093be898b8099e61b6ed", [:mix], [], "hexpm", "20d0ded0e712605d1eae6c5b4889581c3460d92623a930ddda91e0e609b5afba"},
+}
