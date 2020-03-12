@@ -10,4 +10,4 @@ An Elixir project that generates icons by strings.
 
 The Identicon will be generated and placed in `generated/Jane-Doe.png`
 
-![Jane-Doe.png](https://i.imgur.com/VzsqRKi.png)
+![Jane-Doe.png](https://i.imgur.com/1NALpZ6.png)

@@ -1,4 +1,7 @@
 defmodule Identicon do
+  @image_size {250, 250}
+  @dest_folder "generated/"
+
   def generate(input) do
     slug = Slugger.slugify(input)
 
@@ -41,12 +44,16 @@ defmodule Identicon do
   end
 
   defp build_pixel_map(%Identicon.Image{grid: grid} = image) do
+    {total_width, total_height} = @image_size
+    square_width = Kernel.trunc(total_width / 5)
+    square_height = Kernel.trunc(total_height / 5)
+
     pixel_map =
       Enum.map(grid, fn {_, index} ->
-        horizontal = rem(index, 5) * 50
-        vertical = div(index, 5) * 50
+        horizontal = rem(index, 5) * square_width
+        vertical = div(index, 5) * square_height
         start = {horizontal, vertical}
-        finish = {horizontal + 50, vertical + 50}
+        finish = {horizontal + square_width, vertical + square_height}
         {start, finish}
       end)
 
@@ -54,7 +61,11 @@ defmodule Identicon do
   end
 
   defp draw_image(%Identicon.Image{color: color, pixel_map: pixel_map}) do
-    image = :egd.create(250, 250)
+    {width, height} = @image_size
+
+    image = :egd.create(width, height)
+    :egd.filledRectangle(image, {0, 0}, @image_size, :egd.color({225, 225, 225}))
+
     fill = :egd.color(color)
 
     Enum.each(pixel_map, fn {start, finish} ->
@@ -65,6 +76,6 @@ defmodule Identicon do
   end
 
   defp save_image(image, slug) do
-    File.write("generated/#{slug}.png", image)
+    File.write(@dest_folder <> "#{slug}.png", image)
   end
 end
